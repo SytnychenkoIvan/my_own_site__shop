@@ -8,8 +8,8 @@ if (form) {
 	form.addEventListener('submit', async (event) => {
 		event.preventDefault();
 
+
 		const button = form.querySelector('button[type="submit"]');
-		const formMessage = form.querySelector('.form-message');
 
 		const formData = new FormData(form);
 
@@ -19,45 +19,91 @@ if (form) {
 			message: formData.get('message'),
 		};
 
+		console.log('Отправляем:', data);
+
 		button.disabled = true;
 
-		if (formMessage) {
-			formMessage.textContent = 'Отправка...';
-		}
-
 		try {
-			const response = await fetch(
-				'/.netlify/functions/send-telegram',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			);
+			const response = await fetch('/.netlify/functions/send-telegram', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
 
 			const result = await response.json();
+
+			console.log('Ответ сервера:', result);
 
 			if (!response.ok || !result.success) {
 				throw new Error(result.message || 'Ошибка отправки');
 			}
 
+			// Очищаем форму
 			form.reset();
 
-			if (formMessage) {
-				formMessage.textContent = 'Заявка успешно отправлена!';
-			}
-		} catch (error) {
-			console.error(error);
+			// Показываем сообщение
+			alert('Заявка успешно отправлена!');
 
-			if (formMessage) {
-				formMessage.textContent =
-					'Не удалось отправить заявку. Попробуйте ещё раз.';
-			}
+		} catch (error) {
+			console.error('Ошибка отправки:', error);
+
+			alert('Не удалось отправить заявку. Попробуйте ещё раз.');
+
 		} finally {
 			button.disabled = false;
 		}
+		// const button = form.querySelector('button[type="submit"]');
+		// const formMessage = form.querySelector('.form-message');
+
+		// const formData = new FormData(form);
+
+		// const data = {
+		// 	name: formData.get('name'),
+		// 	phone: formData.get('phone'),
+		// 	message: formData.get('message'),
+		// };
+
+		// button.disabled = true;
+
+		// if (formMessage) {
+		// 	formMessage.textContent = 'Отправка...';
+		// }
+
+		// try {
+		// 	const response = await fetch(
+		// 		'/.netlify/functions/send-telegram',
+		// 		{
+		// 			method: 'POST',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 			},
+		// 			body: JSON.stringify(data),
+		// 		}
+		// 	);
+
+		// 	const result = await response.json();
+
+		// 	if (!response.ok || !result.success) {
+		// 		throw new Error(result.message || 'Ошибка отправки');
+		// 	}
+
+		// 	form.reset();
+
+		// 	if (formMessage) {
+		// 		formMessage.textContent = 'Заявка успешно отправлена!';
+		// 	}
+		// } catch (error) {
+		// 	console.error(error);
+
+		// 	if (formMessage) {
+		// 		formMessage.textContent =
+		// 			'Не удалось отправить заявку. Попробуйте ещё раз.';
+		// 	}
+		// } finally {
+		// 	button.disabled = false;
+		// }
 	});
 }
 
