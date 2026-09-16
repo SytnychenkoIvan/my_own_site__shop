@@ -1,0 +1,108 @@
+//<FORM>
+// Сніппет (HTML):
+.form {
+	// max-width: rem(533);
+	// background-color: #fff;
+	// border-radius: 10px;
+	// display: flex;
+	// padding: rem(6);
+	// gap: rem(5);
+	position: relative;
+	// @media (max-width: em(430)){
+	// 	flex-direction: column;
+	// }
+	&__row {
+	}
+	&__column {
+	}
+	&__line {
+	}
+	&__input {
+		// height: rem(64);
+		// flex: 1 1 auto;
+		padding: rem(20);
+		border-radius: rem(15);
+		background-color: var(--darckColor) ;
+		border: 1px solid #272525;
+		@include adaptiveValue("font-size", 20, 16);
+		// background-color: $darckColor;
+		color: $titleColor ;
+
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:autofill {
+			-webkit-text-fill-color: $titleColor;
+			-webkit-box-shadow: 0 0 0 1000px $darckColor inset;
+			box-shadow: 0 0 0 1000px $darckColor inset;
+			caret-color: $titleColor;
+			// border-color: #272525;
+			// border-radius: rem(15);
+			// overflow: hidden;
+		}
+		// font-weight: 500;
+		&::placeholder{
+			color: #999;
+         font-size: 16px;
+         opacity: 0.5;
+		}
+		&._form-error{
+			color: red;
+			border: 1px solid red;
+			&::placeholder{
+				// color: red;
+			}
+		}
+		&._form-focus{
+			outline: 1px solid $greenColor;
+		}
+	}
+	&__button {
+	}
+	&__error {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		color: red;
+		font-size: rem(16);
+		margin-top: rem(10);
+		padding-left: rem(26);
+	}
+}
+//</FORM>
+
+// <BUTTONS>
+// Сніппет (HTML): btn
+@import "button";
+
+// <INPUTS>
+// Сніппет (HTML): inp
+// @import "input";
+
+// <CHECK>
+// Сніппет (HTML): chk
+// @import "checkbox";
+
+// <RADIO>
+// Сніппет (HTML): opt
+// @import "radio";
+
+// <SELECT>
+// Сніппет (HTML): sel
+// @import "select";
+
+// <RATING>
+// Сніппет (HTML): rating
+// @import "rating";
+
+// <QUANTITY>
+// Сніппет (HTML): qa
+// @import "quantity";
+
+// <RANGE>
+// Сніппет (HTML):
+// @import "range";
+
+// <CALENDAR>
+// Сніппет (HTML):
+// @import "datepicker";
