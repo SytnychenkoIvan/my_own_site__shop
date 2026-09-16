@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+export const handler = async (event) => {
 	// Разрешаем только POST-запросы
 	if (event.httpMethod !== 'POST') {
 		return {
@@ -49,11 +49,11 @@ exports.handler = async (event) => {
 			}
 		);
 
-		// Telegram вернул ошибку
+		// Проверяем ответ Telegram
 		if (!response.ok) {
 			const errorData = await response.text();
 
-			console.error('Telegram error:', errorData);
+			console.error('Telegram API error:', errorData);
 
 			return {
 				statusCode: 500,
@@ -64,7 +64,7 @@ exports.handler = async (event) => {
 			};
 		}
 
-		// Всё успешно
+		// Успешная отправка
 		return {
 			statusCode: 200,
 			body: JSON.stringify({
