@@ -2,32 +2,64 @@
 // import { isMobile } from "./functions.js";
 
 
-const form = document.getElementById('contact-form');
+const form = document.querySelector('.contact-form');
 
-form.addEventListener('submit', async (e) => {
-	e.preventDefault();
+if (form) {
+	form.addEventListener('submit', async (event) => {
+		event.preventDefault();
 
-	const data = {
-		name: document.getElementById('name').value,
-		email: document.getElementById('email').value,
-		message: document.getElementById('message').value
-	};
+		const button = form.querySelector('button[type="submit"]');
+		const formMessage = form.querySelector('.form-message');
 
-	const response = await fetch('/.netlify/functions/telegram', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(data)
+		const formData = new FormData(form);
+
+		const data = {
+			name: formData.get('name'),
+			phone: formData.get('phone'),
+			message: formData.get('message'),
+		};
+
+		button.disabled = true;
+
+		if (formMessage) {
+			formMessage.textContent = 'Отправка...';
+		}
+
+		try {
+			const response = await fetch(
+				'/.netlify/functions/send-telegram',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(data),
+				}
+			);
+
+			const result = await response.json();
+
+			if (!response.ok || !result.success) {
+				throw new Error(result.message || 'Ошибка отправки');
+			}
+
+			form.reset();
+
+			if (formMessage) {
+				formMessage.textContent = 'Заявка успешно отправлена!';
+			}
+		} catch (error) {
+			console.error(error);
+
+			if (formMessage) {
+				formMessage.textContent =
+					'Не удалось отправить заявку. Попробуйте ещё раз.';
+			}
+		} finally {
+			button.disabled = false;
+		}
 	});
-
-	if (response.ok) {
-		alert('Сообщение отправлено!');
-		form.reset();
-	} else {
-		alert('Ошибка');
-	}
-});
+}
 
 // Функція Glow при наведенні на кнопку=======================================================
 window.addEventListener('load', windowLoad)
