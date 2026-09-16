@@ -2,7 +2,7 @@
 // import { isMobile } from "./functions.js";
 
 
-const form = document.querySelector('.contact-form');
+const form = document.querySelector('#contact-form');
 
 if (form) {
 	form.addEventListener('submit', async (event) => {
