@@ -31,3 +31,4 @@ jobs:
         with:
           folder: dist # ПАПКА, КОТОРУЮ НУЖНО ЗАЛИТЬ (dist, build и т.д.)
           branch: gh-pages # Ветка, куда деплоить
+          clean: true
