@@ -92,6 +92,13 @@ export let formValidate = {
 			} else {
 				this.removeError(formRequiredItem);
 			}
+		} else if (formRequiredItem.dataset.required === "phone") {
+			if (this.phoneTest(formRequiredItem)) {
+				this.addError(formRequiredItem);
+				error++;
+			} else {
+				this.removeError(formRequiredItem);
+			}
 		} else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
 			this.addError(formRequiredItem);
 			error++;
@@ -149,10 +156,142 @@ export let formValidate = {
 			}
 		}, 0);
 	},
+	phoneTest(formRequiredItem) {
+		const phone = formRequiredItem.value.replace(/\D/g, '');
+
+		return phone.length !== 12 || !phone.startsWith('380');
+	},
 	emailTest(formRequiredItem) {
 		return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
 	}
 }
+
+/* Підключаємо додавання коду регіону мобільного номера + пробіли між цифрами до input type='tel' id="phone"  */
+const input = document.querySelector('#phone');
+
+input.addEventListener('focus', () => {
+	if (!input.value) {
+		input.value = '+380 ';
+	}
+});
+
+input.addEventListener('input', () => {
+	// Оставляем только цифры
+	let value = input.value.replace(/\D/g, '');
+
+	// Убираем 380, если пользователь его ввёл/вставил
+	if (value.startsWith('380')) {
+		value = value.substring(3);
+	}
+
+	// Максимум 9 цифр после +380
+	value = value.substring(0, 9);
+
+	// Формат: 93 555 55 55
+	let formatted = '';
+
+	if (value.length > 0) {
+		formatted += value.substring(0, 2);
+	}
+
+	if (value.length > 2) {
+		formatted += ' ' + value.substring(2, 5);
+	}
+
+	if (value.length > 5) {
+		formatted += ' ' + value.substring(5, 7);
+	}
+
+	if (value.length > 7) {
+		formatted += ' ' + value.substring(7, 9);
+	}
+
+	input.value = '+380 ' + formatted;
+});
+// export let formValidate = {
+// 	getErrors(form) {
+// 		let error = 0;
+// 		let formRequiredItems = form.querySelectorAll('*[data-required]');
+// 		if (formRequiredItems.length) {
+// 			formRequiredItems.forEach(formRequiredItem => {
+// 				if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+// 					error += this.validateInput(formRequiredItem);
+// 				}
+// 			});
+// 		}
+// 		return error;
+// 	},
+// 	validateInput(formRequiredItem) {
+// 		let error = 0;
+// 		if (formRequiredItem.dataset.required === "email") {
+// 			formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+// 			if (this.emailTest(formRequiredItem)) {
+// 				this.addError(formRequiredItem);
+// 				error++;
+// 			} else {
+// 				this.removeError(formRequiredItem);
+// 			}
+// 		} else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+// 			this.addError(formRequiredItem);
+// 			error++;
+// 		} else {
+// 			if (!formRequiredItem.value.trim()) {
+// 				this.addError(formRequiredItem);
+// 				error++;
+// 			} else {
+// 				this.removeError(formRequiredItem);
+// 			}
+// 		}
+// 		return error;
+// 	},
+// 	addError(formRequiredItem) {
+// 		formRequiredItem.classList.add('_form-error');
+// 		formRequiredItem.parentElement.classList.add('_form-error');
+// 		let inputError = formRequiredItem.parentElement.querySelector('.form__error');
+// 		if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+// 		if (formRequiredItem.dataset.error) {
+// 			formRequiredItem.parentElement.insertAdjacentHTML('beforeend', `<div class="form__error">${formRequiredItem.dataset.error}</div>`);
+// 		}
+// 	},
+// 	removeError(formRequiredItem) {
+// 		formRequiredItem.classList.remove('_form-error');
+// 		formRequiredItem.parentElement.classList.remove('_form-error');
+// 		if (formRequiredItem.parentElement.querySelector('.form__error')) {
+// 			formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector('.form__error'));
+// 		}
+// 	},
+// 	formClean(form) {
+// 		form.reset();
+// 		setTimeout(() => {
+// 			let inputs = form.querySelectorAll('input,textarea');
+// 			for (let index = 0; index < inputs.length; index++) {
+// 				const el = inputs[index];
+// 				el.parentElement.classList.remove('_form-focus');
+// 				el.classList.remove('_form-focus');
+// 				formValidate.removeError(el);
+// 			}
+// 			let checkboxes = form.querySelectorAll('.checkbox__input');
+// 			if (checkboxes.length > 0) {
+// 				for (let index = 0; index < checkboxes.length; index++) {
+// 					const checkbox = checkboxes[index];
+// 					checkbox.checked = false;
+// 				}
+// 			}
+// 			if (flsModules.select) {
+// 				let selects = form.querySelectorAll('.select');
+// 				if (selects.length) {
+// 					for (let index = 0; index < selects.length; index++) {
+// 						const select = selects[index].querySelector('select');
+// 						flsModules.select.selectBuild(select);
+// 					}
+// 				}
+// 			}
+// 		}, 0);
+// 	},
+// 	emailTest(formRequiredItem) {
+// 		return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+// 	}
+// }
 /* Відправлення форм */
 export function formSubmit() {
 	const forms = document.forms;
