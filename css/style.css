@@ -774,6 +774,7 @@ body.whitestyle .icon-light {
   border-radius: 0.9375rem;
   border: 1px solid #636262;
   overflow: hidden;
+  margin-bottom: 0.3125rem;
 }
 
 .item-portfolio__image {
@@ -1114,7 +1115,7 @@ body.whitestyle .icon-light {
   }
 
   .main {
-    padding-top: 12.5rem;
+    padding-top: 11.25rem;
   }
 
   .main {
@@ -1578,6 +1579,11 @@ body.whitestyle .icon-light {
     right: 50%;
   }
 
+  .contacts__title {
+    flex: 0 1 auto;
+    line-height: 35px;
+  }
+
   .form-contacts__button {
     max-width: 100%;
   }
@@ -1716,15 +1722,15 @@ body.whitestyle .icon-light {
     }
 }
 
-@supports (padding-top: clamp( 7.5rem , 5.7608695652rem  +  8.6956521739vw , 12.5rem )) {
+@supports (padding-top: clamp( 7.5rem , 6.1956521739rem  +  6.5217391304vw , 11.25rem )) {
     .main {
-      padding-top: clamp( 7.5rem , 5.7608695652rem  +  8.6956521739vw , 12.5rem );
+      padding-top: clamp( 7.5rem , 6.1956521739rem  +  6.5217391304vw , 11.25rem );
     }
 }
 
-@supports not (padding-top: clamp( 7.5rem , 5.7608695652rem  +  8.6956521739vw , 12.5rem )) {
+@supports not (padding-top: clamp( 7.5rem , 6.1956521739rem  +  6.5217391304vw , 11.25rem )) {
     .main {
-      padding-top: calc(7.5rem + 5 * (100vw - 20rem) / 57.5);
+      padding-top: calc(7.5rem + 3.75 * (100vw - 20rem) / 57.5);
     }
 }
 
