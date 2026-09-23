@@ -1,16 +1,14 @@
 .main {
-	@include adaptiveValue("padding-top", 200, 120);
+	@include adaptiveValue("padding-top", 180, 120);
 	@include adaptiveValue("padding-bottom", 100, 40);
 	background-color: var(--darckColor);
 	// .main__title
 	&__container{
-			// background-color: var(--containerColor);
 			display: flex;
 			align-items: center;
 			flex-direction: column;
 			@include adaptiveValue("gap", 50, 25);
 			position: relative;
-			// padding: rem(0) rem(20);
 		}
 		&__bg-decor{
 				content: "";
@@ -27,7 +25,6 @@
 				@include adaptiveValue("bottom", -100, -40);
 				left: 0;
 				transform: rotate(180deg);
-				// z-index: -1;
 		}
 		&__title {
 			padding-left: rem(20);
@@ -261,13 +258,10 @@
 .item-portfolio {
 		display: flex;
 		flex-direction: column;
-		// flex: 0	1	400px;
-		// @media (max-width:$mobile){
-		// 	flex: 0	1	100%;
-		// }
 		border-radius: rem(15);
 		border: 1px solid $greyColor;
 		overflow: hidden;
+		margin-bottom: rem(5);
 		@media (any-hover: hover){
 			&:hover{
 				.item-portfolio__image {
@@ -465,6 +459,10 @@
 		// .contacts__title
 
 		&__title {
+			@media (max-width:$mobileSmall){
+				flex: 0 1 auto;
+				line-height: 35px;
+			}
 		}
 
 		// .contacts__line
