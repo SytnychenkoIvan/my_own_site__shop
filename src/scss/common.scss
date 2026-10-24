@@ -22,7 +22,7 @@
 .title{
 	flex: 1 0 auto;
 			@include adaptiveValue("font-size", 50, 30);
-			font-weight: 700;
+			font-weight: 600;
 			color: var(--titleColor);
 			position: relative;
 }

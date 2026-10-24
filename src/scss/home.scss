@@ -32,8 +32,8 @@
 			text-align: center;
 			max-width: rem(700);
 			@include adaptiveValue("font-size", 65, 40);
-			@include adaptiveValue("line-height", 70, 45);
-			font-weight: 800;
+			@include adaptiveValue("line-height", 80, 45);
+			font-weight: 600;
 			color: var(--titleColor);
 			span{
 				// color: $greenColor;
@@ -48,7 +48,7 @@
 			padding-right: rem(20);
 			@include adaptiveValue("font-size", 20, 16);
 			font-weight: 400;
-			line-height: 30px;
+			@include adaptiveValue("line-height", 40, 30);
 			color: var(--whiteColor);
 			text-align: center;
 			max-width: rem(900);

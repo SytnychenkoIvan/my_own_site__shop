@@ -574,7 +574,7 @@ body.whitestyle .icon-light {
   }
 }
 .title {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--titleColor);
   position: relative;
 }
@@ -1113,18 +1113,18 @@ body.whitestyle .icon-light {
 }
 @media (min-width: 77.5em) {
   .main__title {
-    line-height: 4.375rem;
+    line-height: 5rem;
   }
 }
 @media (min-width: 20em) and (max-width: 77.5em) {
-  @supports (line-height: clamp( 2.8125rem , 2.2690217391rem  +  2.7173913043vw , 4.375rem )) {
+  @supports (line-height: clamp( 2.8125rem , 2.0516304348rem  +  3.8043478261vw , 5rem )) {
     .main__title {
-      line-height: clamp( 2.8125rem , 2.2690217391rem  +  2.7173913043vw , 4.375rem );
+      line-height: clamp( 2.8125rem , 2.0516304348rem  +  3.8043478261vw , 5rem );
     }
   }
-  @supports not (line-height: clamp( 2.8125rem , 2.2690217391rem  +  2.7173913043vw , 4.375rem )) {
+  @supports not (line-height: clamp( 2.8125rem , 2.0516304348rem  +  3.8043478261vw , 5rem )) {
     .main__title {
-      line-height: calc(2.8125rem + 1.5625 * (100vw - 20rem) / 57.5);
+      line-height: calc(2.8125rem + 2.1875 * (100vw - 20rem) / 57.5);
     }
   }
 }
@@ -1134,7 +1134,7 @@ body.whitestyle .icon-light {
   }
 }
 .main__title {
-  font-weight: 800;
+  font-weight: 600;
   color: var(--titleColor);
 }
 .main__title span {
@@ -1168,7 +1168,30 @@ body.whitestyle .icon-light {
 }
 .main__text {
   font-weight: 400;
-  line-height: 30px;
+}
+@media (min-width: 77.5em) {
+  .main__text {
+    line-height: 2.5rem;
+  }
+}
+@media (min-width: 20em) and (max-width: 77.5em) {
+  @supports (line-height: clamp( 1.875rem , 1.6576086957rem  +  1.0869565217vw , 2.5rem )) {
+    .main__text {
+      line-height: clamp( 1.875rem , 1.6576086957rem  +  1.0869565217vw , 2.5rem );
+    }
+  }
+  @supports not (line-height: clamp( 1.875rem , 1.6576086957rem  +  1.0869565217vw , 2.5rem )) {
+    .main__text {
+      line-height: calc(1.875rem + 0.625 * (100vw - 20rem) / 57.5);
+    }
+  }
+}
+@media (max-width: 20em) {
+  .main__text {
+    line-height: 1.875rem;
+  }
+}
+.main__text {
   color: var(--whiteColor);
   text-align: center;
   max-width: 56.25rem;
